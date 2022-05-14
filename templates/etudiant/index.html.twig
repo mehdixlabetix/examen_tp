@@ -1,0 +1,33 @@
+{% extends 'template.html.twig' %}
+
+{% block title %}Hello !{% endblock %}
+
+{% block body %}
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet" />
+    <div class="container">
+        <table class="table">
+            <tr>
+                <th>nom</th>
+                <th>prenom</th>
+                <th>appartient à</th>
+            </tr>
+            {% for e in etudiant %}
+                <tr{% if (loop.index is even) %} class="alert-info"
+                {% else %} class="alert-danger" {% endif %}>
+                    <td>{{ e.nom }}</td>
+                    <td>{{ e.prenom }}</td>
+                    <td>{% if(e.appartient) %}{{  e.appartient }}
+                        {% else  %}Etudiant non encore affecté à une section</td>
+                    {% endif %}
+                    <td>
+                        <a href="{{path("app_etudiant_add", {id: e.getId() })}}">Edit</a>
+                        |
+                        <a href="{{path("ap_del", {id: e.getId() })}}">Delete</a>
+                    </td>
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+    <script src="{{ asset('assets/js/script.js') }}"></script>
+{% endblock %}
